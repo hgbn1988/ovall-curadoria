@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Getting Web3Forms Key...</h1>
+<div id="result"></div>
+<script>
+fetch('https://api.web3forms.com/key', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ email: 'hugo@ovall.co', name: 'Ovall Curadoria' })
+})
+.then(r => r.json())
+.then(data => {
+  document.getElementById('result').textContent = JSON.stringify(data, null, 2);
+})
+.catch(err => {
+  document.getElementById('result').textContent = 'Error: ' + err.message;
+});
+</script>
+</body>
+</html>
