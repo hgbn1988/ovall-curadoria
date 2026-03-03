@@ -7,7 +7,7 @@
 <meta name="robots" content="noindex, nofollow">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ═══════════════════════════════════════════════════════════════
    OVALL CURADORIA v3 — ULTRA PREMIUM DESIGN SYSTEM
@@ -34,6 +34,7 @@
   --sage-muted: rgba(107,123,94,0.08);
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -59,12 +60,24 @@ body {
   left: 0;
   right: 0;
   z-index: 1000;
+  background: transparent;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  border-bottom: 0.5px solid transparent;
+  transition: all 0.5s var(--ease);
+}
+
+.nav.scrolled {
   background: rgba(255,255,255,0.72);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 0.5px solid rgba(0,0,0,0.08);
-  transition: all 0.4s var(--ease);
 }
+
+.nav:not(.scrolled) .nav-links a { color: rgba(255,255,255,0.6); }
+.nav:not(.scrolled) .nav-links a:hover { color: var(--white); }
+.nav:not(.scrolled) .nav-badge { color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.15); }
+.nav:not(.scrolled) .logo-svg { filter: brightness(0) invert(1); }
 
 .nav-inner {
   max-width: 1400px;
@@ -108,102 +121,164 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 120px 48px 80px;
+  align-items: flex-start;
+  text-align: left;
+  padding: 140px 80px 80px;
   position: relative;
-  background: var(--white);
+  background: var(--gray-900);
+  overflow: hidden;
 }
 
 .hero::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: radial-gradient(ellipse at 50% 30%, rgba(107,123,94,0.04) 0%, transparent 70%);
+  top: -20%; right: -10%;
+  width: 70vw;
+  height: 70vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(107,123,94,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%; left: -20%;
+  width: 50vw;
+  height: 50vw;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
   pointer-events: none;
 }
 
 .hero-eyebrow {
+  font-family: var(--font-sans);
   font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-weight: 500;
+  letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--sage);
-  margin-bottom: 32px;
+  color: var(--sage-light);
+  margin-bottom: 40px;
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--sage-light);
 }
 
 .hero h1 {
-  font-family: var(--font-serif);
-  font-size: clamp(42px, 6vw, 72px);
-  font-weight: 400;
-  line-height: 1.1;
-  color: var(--gray-900);
-  max-width: 800px;
-  margin-bottom: 24px;
-  letter-spacing: -0.02em;
+  font-family: var(--font-display);
+  font-size: clamp(48px, 7vw, 96px);
+  font-weight: 300;
+  line-height: 1.02;
+  color: var(--white);
+  max-width: 900px;
+  margin-bottom: 32px;
+  letter-spacing: -0.04em;
+}
+
+.hero h1 strong {
+  font-weight: 600;
+  color: var(--white);
 }
 
 .hero h1 em {
+  font-family: var(--font-serif);
   font-style: italic;
-  color: var(--sage);
+  font-weight: 400;
+  color: var(--sage-light);
 }
 
 .hero-desc {
-  font-size: 16px;
+  font-size: 17px;
   line-height: 1.7;
-  color: var(--gray-500);
-  max-width: 600px;
-  margin-bottom: 64px;
+  color: rgba(255,255,255,0.5);
+  max-width: 520px;
+  margin-bottom: 72px;
   font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+.hero-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
 }
 
 .hero-stats {
   display: flex;
-  gap: 80px;
-  align-items: center;
+  gap: 56px;
+  align-items: flex-start;
 }
 
 .hero-stat {
-  text-align: center;
+  text-align: left;
+  position: relative;
 }
 
+.hero-stat::after {
+  content: '';
+  position: absolute;
+  right: -28px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,0.1);
+}
+
+.hero-stat:last-child::after { display: none; }
+
 .hero-stat-number {
-  font-family: var(--font-serif);
-  font-size: 48px;
-  font-weight: 400;
-  color: var(--gray-900);
+  font-family: var(--font-display);
+  font-size: 42px;
+  font-weight: 300;
+  color: var(--white);
   line-height: 1;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
+  letter-spacing: -0.03em;
 }
 
 .hero-stat-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.15em;
+  font-size: 9px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gray-400);
+  color: rgba(255,255,255,0.35);
 }
 
 .hero-scroll {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  color: var(--gray-400);
-  font-size: 11px;
-  letter-spacing: 0.1em;
+  gap: 10px;
+  color: rgba(255,255,255,0.4);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  animation: float 3s ease-in-out infinite;
+  animation: pulse-right 2.5s ease-in-out infinite;
+  cursor: pointer;
 }
 
-@keyframes float {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
-  50% { transform: translateX(-50%) translateY(8px); }
+.hero-scroll svg {
+  transition: transform 0.3s var(--ease);
+}
+
+.hero-scroll:hover svg {
+  transform: translateY(3px);
+}
+
+@keyframes pulse-right {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
 }
 
 /* ═══ SECTIONS ═══ */
@@ -1604,8 +1679,10 @@ body {
   .nav-links { gap: 16px; }
   .nav-links a { font-size: 11px; }
   .hero { padding: 100px 24px 60px; }
-  .hero-stats { gap: 40px; }
-  .hero-stat-number { font-size: 36px; }
+  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 40px; }
+  .hero-stats { gap: 32px; }
+  .hero-stat-number { font-size: 32px; }
+  .hero-scroll { align-self: flex-start; }
   .section { padding: 80px 24px; }
   .briefing-section { padding: 80px 24px; }
   .criteria-grid { grid-template-columns: 1fr; }
@@ -1651,25 +1728,27 @@ body {
 <!-- HERO -->
 <section class="hero">
   <div class="hero-eyebrow">Curadoria Exclusiva</div>
-  <h1>Seu próximo endereço<br>em <em>São Paulo</em></h1>
-  <p class="hero-desc">Apresentamos uma seleção confidencial e criteriosa de residências nos endereços mais emblemáticos de São Paulo — Jardins, Itaim Bibi e Vila Nova Conceição. Cada imóvel foi avaliado não apenas por sua excelência arquitetônica, mas por sua capacidade de traduzir um estilo de vida cosmopolita e, ao mesmo tempo, intimista. Esta é uma curadoria para a família que vê a cidade como uma extensão de seu lar.</p>
-  <div class="hero-stats">
-    <div class="hero-stat">
-      <div class="hero-stat-number">14</div>
-      <div class="hero-stat-label">Imóveis Selecionados</div>
+  <h1>Onde você<br>vai <em>morar</em><br>em São Paulo.</h1>
+  <p class="hero-desc">14 endereços selecionados a dedo nos bairros que importam. Jardins, Itaim, Vila Nova Conceição. Sem ruído, sem perda de tempo — só o que faz sentido para vocês.</p>
+  <div class="hero-bottom">
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-number">14</div>
+        <div class="hero-stat-label">Imóveis</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">5</div>
+        <div class="hero-stat-label">Bairros</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-number">76</div>
+        <div class="hero-stat-label">Aderência</div>
+      </div>
     </div>
-    <div class="hero-stat">
-      <div class="hero-stat-number">5</div>
-      <div class="hero-stat-label">Bairros-Chave</div>
+    <div class="hero-scroll" onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">
+      Explorar
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
     </div>
-    <div class="hero-stat">
-      <div class="hero-stat-number">76</div>
-      <div class="hero-stat-label">Aderência Média</div>
-    </div>
-  </div>
-  <div class="hero-scroll">
-    Explorar
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"/></svg>
   </div>
 </section>
 
@@ -5738,6 +5817,21 @@ document.addEventListener('DOMContentLoaded', () => {
 const style = document.createElement('style');
 style.textContent = '@keyframes spin { to { transform: rotate(360deg); } } .spin { animation: spin 1s linear infinite; }';
 document.head.appendChild(style);
+
+// Nav scroll detection - transparent on hero, white on scroll
+const nav = document.querySelector('.nav');
+const heroSection = document.querySelector('.hero');
+function checkNavScroll() {
+  if (!heroSection) return;
+  const heroBottom = heroSection.getBoundingClientRect().bottom;
+  if (heroBottom <= 60) {
+    nav.classList.add('scrolled');
+  } else {
+    nav.classList.remove('scrolled');
+  }
+}
+window.addEventListener('scroll', checkNavScroll, { passive: true });
+checkNavScroll();
 </script>
 
 </body>
